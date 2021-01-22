@@ -11,17 +11,17 @@ import (
 type (
 	CreateUserRequest struct {
 		Email    string `json:"email"`
-		Password string `json: "password"`
+		Password string `json:"password"`
 	}
-	CreateUserRequest struct {
-		ok string `json: "ok"`
+	CreateUserResponse struct {
+		Ok string `json:"ok"`
 	}
 
-	GetUserResponse struct {
-		Email string `json: "email"`
-	}
 	GetUserRequest struct {
-		Id string `json: "id"`
+		Id string `json:"id"`
+	}
+	GetUserResponse struct {
+		Email string `json:"email"`
 	}
 )
 
@@ -29,7 +29,7 @@ func encodeResponse(ctx context.Context, w http.ResponseWriter, response interfa
 	return json.NewEncoder(w).Encode(response)
 }
 
-func decoderUserReq(ctx context.Context, r *http.Request) (interface{}, error) {
+func decodeUserReq(ctx context.Context, r *http.Request) (interface{}, error) {
 	var req CreateUserRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
